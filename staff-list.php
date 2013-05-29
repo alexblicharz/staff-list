@@ -324,4 +324,38 @@ add_shortcode('staff_list','staff_list');
 // enueue styles
 wp_enqueue_style( 'prefix-style', plugins_url('assets/styles/style.css', __FILE__) );
 
+
+// Modify the meta boxes so the content box shows up at normal priority instead of at the top of the list
+function staff_list_add_meta_boxes() {
+	global $_wp_post_type_features;
+	if (isset($_wp_post_type_features['staff']['editor']) && $_wp_post_type_features['staff']['editor']) {
+		unset($_wp_post_type_features['staff']['editor']);
+		add_meta_box(
+			'description',
+			__('Content'),
+			'staff_list_content_metabox',
+			'staff', 
+			'normal', 
+			'default'
+		);
+	}
+}
+add_action( 'add_meta_boxes', 'staff_list_add_meta_boxes', 0 );
+
+
+// add admin styles
+function staff_list_wp_admin_style() {
+	wp_register_style( 'staff-list-admin-css', plugins_url('assets/styles/admin-style.css', __FILE__) );
+	wp_enqueue_style( 'staff-list-admin-css' );
+}
+add_action( 'admin_enqueue_scripts', 'staff_list_wp_admin_style' );
+
+
+// display the meta box
+function staff_list_content_metabox( $post ) {
+	echo '<div class="wp-editor-wrap">';
+	wp_editor($post->post_content, 'content', array('dfw' => true, 'tabindex' => 1) );
+	echo '</div>';
+}
+
 ?>
