@@ -272,6 +272,8 @@ function staff_list( $atts ) {
 	
 	$staff_list_items = get_posts($staff_list_query);
 	
+	// start the outbut buffer
+	ob_start();
 	?>
 	<ul class="staff-list">
 	<?php
@@ -317,6 +319,9 @@ function staff_list( $atts ) {
 	?>
 	</ul>
 	<?php
+	$result = ob_get_contents();
+	ob_end_clean();
+	return $result;
 	
 }
 add_shortcode('staff_list','staff_list');
