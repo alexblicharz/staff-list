@@ -1,13 +1,11 @@
 <?php
 /*
 Plugin Name: Staff List
-Version: 1.0.0
+Version: 1.0.1
 Description: Enter and manage all of your organization members or employees.
 Author: Alex Blicharz
 License: GPL v3
 */
-?>
-<?php
 
 
 // Initialize the Custom Post Type
@@ -320,49 +318,7 @@ function staff_list( $atts ) {
 }
 add_shortcode('staff_list','staff_list');
 
-// Add Styles to the head
-function wpse27772_output_styles(){
-	?>
-    <style>
-		.staff-list {
-			list-style:none;
-			margin:0;
-		}
-		
-			.staff-list li {
-				line-height:1.8em;
-				margin:0 1px 20px 1px;
-				overflow:hidden;
-				text-align:left;
-			}
-			
-				.si-copy {
-					clear:none;
-					float:right;
-					padding:18px 0 0 0;
-					width:350px;
-				}
-			
-				.si-image {
-					clear:none;
-					display:block;
-					float:left;
-					height:220px;
-					overflow:hidden;
-					width:180px;	
-				}
-			
-				.si-name {
-					font-size:1.4em;
-					padding:0;
-				}
-				
-				.si-email {
-					font-size:1em;	
-				}
-	</style>
-    <?php
-}
-add_action('wp_head', 'wpse27772_output_styles');
+// enueue styles
+wp_enqueue_style( 'prefix-style', plugins_url('assets/styles/style.css', __FILE__) );
 
 ?>
