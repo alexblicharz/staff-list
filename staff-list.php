@@ -322,7 +322,7 @@ function staff_list( $atts ) {
 add_shortcode('staff_list','staff_list');
 
 // enueue styles
-wp_enqueue_style( 'prefix-style', plugins_url('assets/styles/style.css', __FILE__) );
+wp_enqueue_style( 'staff-list-style', plugins_url('assets/styles/style.css', __FILE__) );
 
 
 // Modify the meta boxes so the content box shows up at normal priority instead of at the top of the list
