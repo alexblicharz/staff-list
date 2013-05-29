@@ -32,7 +32,7 @@ function create_staff_list_custom_post_type() {
 		'description'   => 'A list of all Staff Members',
 		'public'        => true,
 		'menu_position' => 5,
-		'supports'      => array( 'title', 'thumbnail'), // 'title', 'editor', 'thumbnail', 'excerpt', 'comments' 
+		'supports'      => array( 'title', 'editor', 'thumbnail'), // 'title', 'editor', 'thumbnail', 'excerpt', 'comments' 
 		'has_archive'   => true,
 	);
 	
@@ -304,6 +304,9 @@ function staff_list( $atts ) {
                 <span class="si-email"><a href="<?php echo get_post_meta($post->ID, 'staff_email', true); ?>"><?php echo get_post_meta($post->ID, 'staff_email', true); ?></a></span><br />
                 <span class="si-phone"><?php echo get_post_meta($post->ID, 'staff_phone', true); ?></span>
                 <span class="si-phone-ex"><?php echo get_post_meta($post->ID, 'staff_phone_ex', true); ?></span>
+                <div class="si-content">
+					<?php echo the_content(); ?>
+                </div>
 			</div>
             
         </li>
