@@ -12,28 +12,28 @@ License: GPL v3
 function create_staff_list_custom_post_type() {
 	
 	$labels = array(
-		'name'               => _x( 'Staff List', 'post type general name' ),
-		'singular_name'      => _x( 'Staff Member', 'post type singular name' ),
-		'add_new'            => _x( 'Add New', 'staff' ),
-		'add_new_item'       => __( 'Add New Staff Member' ),
-		'edit_item'          => __( 'Edit Staff Member' ),
-		'new_item'           => __( 'New Staff Member' ),
-		'all_items'          => __( 'All Staff Members' ),
-		'view_item'          => __( 'View Staff Member' ),
-		'search_items'       => __( 'Search Staff Members' ),
-		'not_found'          => __( 'No Staff Members found' ),
-		'not_found_in_trash' => __( 'No Staff Members found in the Trash' ), 
-		'parent_item_colon'  => '',
-		'menu_name'          => 'Staff List'
+		'name'					=> _x( 'Staff List', 'post type general name' ),
+		'singular_name'			=> _x( 'Staff Member', 'post type singular name' ),
+		'add_new'				=> _x( 'Add New', 'staff' ),
+		'add_new_item'			=> __( 'Add New Staff Member' ),
+		'edit_item'				=> __( 'Edit Staff Member' ),
+		'new_item'				=> __( 'New Staff Member' ),
+		'all_items'				=> __( 'All Staff Members' ),
+		'view_item'				=> __( 'View Staff Member' ),
+		'search_items'			=> __( 'Search Staff Members' ),
+		'not_found'				=> __( 'No Staff Members found' ),
+		'not_found_in_trash'	=> __( 'No Staff Members found in the Trash' ),
+		'parent_item_colon'		=> '',
+		'menu_name'				=> 'Staff List'
 	);
 	
 	$args = array(
-		'labels'        => $labels,
-		'description'   => 'A list of all Staff Members',
-		'public'        => true,
-		'menu_position' => 5,
-		'supports'      => array( 'title', 'editor', 'thumbnail'), // 'title', 'editor', 'thumbnail', 'excerpt', 'comments' 
-		'has_archive'   => true,
+		'labels'		=> $labels,
+		'description'	=> 'A list of all Staff Members',
+		'public'		=> true,
+		'menu_position'	=> 5,
+		'supports'		=> array( 'title', 'editor', 'thumbnail'), // 'title', 'editor', 'thumbnail', 'excerpt', 'comments' 
+		'has_archive'	=> true,
 	);
 	
 	register_post_type( 'staff', $args );
@@ -41,25 +41,25 @@ function create_staff_list_custom_post_type() {
 	// Register Taxonomy
 	// Add new taxonomy, make it hierarchical (like categories)
 
-    $labels = array(
-        'name' => _x( 'Departments', 'taxonomy general name' ),
-        'singular_name' => _x( 'Department', 'taxonomy singular name' ),
-        'search_items' =>  __( 'Search Departments' ),
-        'all_items' => __( 'All Departments' ),
-        'parent_item' => __( 'Parent Department' ),
-        'parent_item_colon' => __( 'Parent Department:' ),
-        'edit_item' => __( 'Edit Department' ),
-        'update_item' => __( 'Update Department' ),
-        'add_new_item' => __( 'Add New Department' ),
-        'new_item_name' => __( 'New Department Name' )
-    ); 
+	$labels = array(
+		'name' => _x( 'Departments', 'taxonomy general name' ),
+		'singular_name' => _x( 'Department', 'taxonomy singular name' ),
+		'search_items' =>  __( 'Search Departments' ),
+		'all_items' => __( 'All Departments' ),
+		'parent_item' => __( 'Parent Department' ),
+		'parent_item_colon' => __( 'Parent Department:' ),
+		'edit_item' => __( 'Edit Department' ),
+		'update_item' => __( 'Update Department' ),
+		'add_new_item' => __( 'Add New Department' ),
+		'new_item_name' => __( 'New Department Name' )
+	); 
 
-    register_taxonomy( 'departments', 'staff', array(
-        'hierarchical' => true,
-        'labels' => $labels, /* NOTICE: Here is where the $labels variable is used */
-        'show_ui' => true,
-        'query_var' => true
-    ));
+	register_taxonomy( 'departments', 'staff', array(
+		'hierarchical' => true,
+		'labels' => $labels, /* NOTICE: Here is where the $labels variable is used */
+		'show_ui' => true,
+		'query_var' => true
+	));
 	
 }
 
@@ -113,15 +113,15 @@ add_action( 'contextual_help', 'my_contextual_help', 10, 3 );*/
 
 // Gather basic Staff Memeber info
 function staff_info_box() {
-    
+
 	add_meta_box( 
-        'staff_member_info',		// Unique identifier for the meta box ( does not have to match funciton name
-        __('Staff Member Info'),			// Title of the meta box ( visible to users )
-        'staff_info_box_content',	// The function which will display the contents of the box
-        'staff',					// Post type the meta box belongs to
-        'normal',						// 'normal', 'advanced', or 'side'
-        'high'						// 'high', 'core', 'default' or 'low'
-    );
+		'staff_member_info',		// Unique identifier for the meta box ( does not have to match funciton name
+		__('Staff Member Info'),			// Title of the meta box ( visible to users )
+		'staff_info_box_content',	// The function which will display the contents of the box
+		'staff',					// Post type the meta box belongs to
+		'normal',						// 'normal', 'advanced', or 'side'
+		'high'						// 'high', 'core', 'default' or 'low'
+	);
 	
 }
 add_action( 'add_meta_boxes', 'staff_info_box' );
@@ -135,32 +135,32 @@ function staff_info_box_content( $post ) {
 	
 	// Retrieve current name of the Director and Movie Rating based on review ID
 	$staff_title = sanitize_text_field(get_post_meta( $post->ID, 'staff_title', true) );
-    $staff_email = sanitize_email(get_post_meta( $post->ID, 'staff_email', true ) );
+	$staff_email = sanitize_email(get_post_meta( $post->ID, 'staff_email', true ) );
 	$staff_phone = sanitize_text_field(get_post_meta( $post->ID, 'staff_phone', true) );
 	$staff_phone_ex = sanitize_text_field(get_post_meta( $post->ID, 'staff_phone_ex', true) );
 	$staff_position = absint(get_post_meta( $post->ID, 'staff_position', true) );
 	?>
-    
-    <table>
-    	<tr valign="top">
-        	<th scope="row"><label for="staff-title">Title</label></th>
-        	<td><input name="staff_title" type="text" id="staff-title" value="<?php echo $staff_title; ?>" class="regular-text" /></td>
+
+	<table>
+		<tr valign="top">
+			<th scope="row"><label for="staff-title">Title</label></th>
+			<td><input name="staff_title" type="text" id="staff-title" value="<?php echo $staff_title; ?>" class="regular-text" /></td>
 		</tr>
 		<tr valign="top">
-        	<th scope="row"><label for="staff-email">Email</label></th>
-        	<td><input name="staff_email" type="text" id="staff-email" value="<?php echo $staff_email; ?>" class="regular-text" /></td>
+			<th scope="row"><label for="staff-email">Email</label></th>
+			<td><input name="staff_email" type="text" id="staff-email" value="<?php echo $staff_email; ?>" class="regular-text" /></td>
 		</tr>
-        <tr valign="top">
-        	<th scope="row"><label for="staff-phone">Phone</label></th>
-        	<td><input name="staff_phone" type="text" id="staff-phone" value="<?php echo $staff_phone; ?>" class="regular-text" /> <label for="staff-phone-ex">ex</label> <input name="staff_phone_ex" type="text" id="staff-phone-ex" value="<?php echo $staff_phone_ex; ?>" class="small-text" /></td>
+		<tr valign="top">
+			<th scope="row"><label for="staff-phone">Phone</label></th>
+			<td><input name="staff_phone" type="text" id="staff-phone" value="<?php echo $staff_phone; ?>" class="regular-text" /> <label for="staff-phone-ex">ex</label> <input name="staff_phone_ex" type="text" id="staff-phone-ex" value="<?php echo $staff_phone_ex; ?>" class="small-text" /></td>
 		</tr>
-        <tr valign="top">
-        	<th scope="row"><label for="staff-position">List Position</label></th>
-        	<td><input name="staff_position" type="text" id="staff-position" value="<?php echo $staff_position; ?>" class="small-text" /></td>
+		<tr valign="top">
+			<th scope="row"><label for="staff-position">List Position</label></th>
+			<td><input name="staff_position" type="text" id="staff-position" value="<?php echo $staff_position; ?>" class="small-text" /></td>
 		</tr>
 	</table>
-    
-    <?php
+	
+	<?php
 }
 
 
@@ -191,7 +191,7 @@ function staff_info_box_save( $post_id ) {
 	
 	if (empty($staff_position))
 	{
-		$staff_position = 0;	
+		$staff_position = 0;
 	}
 	
 	// Update the various input fields
@@ -273,14 +273,14 @@ function staff_list( $atts ) {
 	$staff_list_items = get_posts($staff_list_query);
 	
 	?>
-    <ul class="staff-list">
-    <?php
+	<ul class="staff-list">
+	<?php
 	
 	foreach( $staff_list_items as $post ) :	setup_postdata($post);
 	
 	?>
-    	<li class="
-        	<?php
+		<li class="
+			<?php
 			
 			switch($count) {
 				case 0:
@@ -296,27 +296,27 @@ function staff_list( $atts ) {
 			}
 			
 			?>
-         cf">
-            <span class="si-image"><?php echo get_the_post_thumbnail($post->ID,'medium'); ?></span>
-            <div class="si-copy">
-                <h2 class="si-name"><?php echo get_the_title($post->ID); ?></h2>
-                <span class="si-title"><?php echo get_post_meta($post->ID, 'staff_title', true); ?></span><br />
-                <span class="si-email"><a href="<?php echo get_post_meta($post->ID, 'staff_email', true); ?>"><?php echo get_post_meta($post->ID, 'staff_email', true); ?></a></span><br />
-                <span class="si-phone"><?php echo get_post_meta($post->ID, 'staff_phone', true); ?></span>
-                <span class="si-phone-ex"><?php echo get_post_meta($post->ID, 'staff_phone_ex', true); ?></span>
-                <div class="si-content">
+			cf">
+			<span class="si-image"><?php echo get_the_post_thumbnail($post->ID,'medium'); ?></span>
+			<div class="si-copy">
+				<h2 class="si-name"><?php echo get_the_title($post->ID); ?></h2>
+				<span class="si-title"><?php echo get_post_meta($post->ID, 'staff_title', true); ?></span><br />
+				<span class="si-email"><a href="<?php echo get_post_meta($post->ID, 'staff_email', true); ?>"><?php echo get_post_meta($post->ID, 'staff_email', true); ?></a></span><br />
+				<span class="si-phone"><?php echo get_post_meta($post->ID, 'staff_phone', true); ?></span>
+				<span class="si-phone-ex"><?php echo get_post_meta($post->ID, 'staff_phone_ex', true); ?></span>
+				<div class="si-content">
 					<?php echo the_content(); ?>
-                </div>
+				</div>
 			</div>
-            
-        </li>
-    <?php
+
+		</li>
+	<?php
 	
 	endforeach;
 	
 	?>
-    </ul>
-    <?php
+	</ul>
+	<?php
 	
 }
 add_shortcode('staff_list','staff_list');
