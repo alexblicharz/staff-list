@@ -1,3 +1,36 @@
+/*************************************************
+*	Clearfix Hack
+*************************************************/
+	/**
+	 * For modern browsers
+	 * 1. The space content is one way to avoid an Opera bug when the
+	 *    contenteditable attribute is included anywhere else in the document.
+	 *    Otherwise it causes space to appear at the top and bottom of elements
+	 *    that are clearfixed.
+	 * 2. The use of `table` rather than `block` is only necessary if using
+	 *    `:before` to contain the top-margins of child elements.
+	 */
+	.clearf:before,
+	.clearf:after {
+		content: " "; /* 1 */
+		display: table; /* 2 */
+	}
+	
+	.clearf:after {
+		clear: both;
+	}
+	
+	/**
+	 * For IE 6/7 only
+	 * Include this rule to trigger hasLayout and contain floats.
+	 */
+	.clearf {
+		*zoom: 1;
+	}
+
+/*************************************************
+*	List Styles
+*************************************************/
 .staff-list {
 	list-style:none;
 	margin:0;
@@ -7,23 +40,22 @@
 		line-height:1.8em;
 		margin:0 1px 20px 1px;
 		overflow:hidden;
+		padding:0;
 		text-align:left;
 	}
 	
 		.si-copy {
 			clear:none;
 			float:right;
-			padding:18px 0 0 0;
-			width:350px;
+			width:60%;
 		}
 	
 		.si-image {
 			clear:none;
 			display:block;
 			float:left;
-			height:220px;
 			overflow:hidden;
-			width:180px;	
+			width:30%;	
 		}
 	
 		.si-name {

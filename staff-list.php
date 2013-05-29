@@ -3,7 +3,7 @@
 Plugin Name: Staff List
 Version: 1.0.1
 Description: Enter and manage all of your organization members or employees.
-Author: Alex Blicharz
+Author: Alex Blicharz and Patrick Rauland
 License: GPL v3
 */
 
@@ -298,7 +298,7 @@ function staff_list( $atts ) {
 			}
 			
 			?>
-			cf">
+			clearf">
 			<span class="si-image"><?php echo get_the_post_thumbnail($post->ID,'medium'); ?></span>
 			<div class="si-copy">
 				<h2 class="si-name"><?php echo get_the_title($post->ID); ?></h2>
