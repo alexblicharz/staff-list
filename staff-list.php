@@ -358,4 +358,15 @@ function staff_list_content_metabox( $post ) {
 	echo '</div>';
 }
 
+
+// change the default custom post type title
+function staff_list_default_title( $title ){
+	$screen = get_current_screen();
+	if  ( 'staff' == $screen->post_type ) {
+		$title = 'Enter staff member name here';
+	}
+	return $title;
+}
+add_filter( 'enter_title_here', 'staff_list_default_title' )
+
 ?>
