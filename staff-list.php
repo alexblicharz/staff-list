@@ -271,52 +271,89 @@ function staff_list( $atts ) {
 	);
 	
 	$staff_list_items = get_posts($staff_list_query);
+
+	// start templating logic
+	$template = '<li class="%%CLASS%%">
+				<div>
+					%%IMAGE%%
+					<div class="si-copy">
+						%%NAME%%
+						%%TITLE%%
+						%%EMAIL%%
+						%%PHONE%%
+						%%PHONE_EX%%
+						%%CONTENT%%
+					</div>
+				</div>
+			</li>';
+	
+	// get rid of the linebreaks (we just had that there for readability)
+	$template = preg_replace( '/\s+/', ' ', $template );;
+
+	// apply filters for any modifications from other plugins or themes
+	$template = apply_filters( 'staff_list_template', $template, $args );
 	
 	// start the outbut buffer
 	ob_start();
 	?>
 	<ul class="staff-list">
-	<?php
-	
-	foreach( $staff_list_items as $post ) :	setup_postdata($post);
-	
-	?>
-		<li class="
-			<?php
-			
+		<?php
+		foreach( $staff_list_items as $post ) :	setup_postdata($post);
+			// create a copy of the template for each listing
+			$tpl = $template;
+
+			// determine the class for the li
+			$class = ""; 
 			switch($count) {
 				case 0:
-					echo 'first';
+					$class = 'first';
 					$count++;
 					break;
 				case 2:
-					echo 'last';
+					$class = 'last';
 					$count = 0;
 					break;
 				default:
 					$count++;
 			}
-			
-			?>
-			clearf">
-			<span class="si-image"><?php echo get_the_post_thumbnail($post->ID,'medium'); ?></span>
-			<div class="si-copy">
-				<h2 class="si-name"><?php echo get_the_title($post->ID); ?></h2>
-				<span class="si-title"><?php echo get_post_meta($post->ID, 'staff_title', true); ?></span><br />
-				<span class="si-email"><a href="<?php echo get_post_meta($post->ID, 'staff_email', true); ?>"><?php echo get_post_meta($post->ID, 'staff_email', true); ?></a></span><br />
-				<span class="si-phone"><?php echo get_post_meta($post->ID, 'staff_phone', true); ?></span>
-				<span class="si-phone-ex"><?php echo get_post_meta($post->ID, 'staff_phone_ex', true); ?></span>
-				<div class="si-content">
-					<?php echo the_content(); ?>
-				</div>
-			</div>
+			// also add the clearfix class
+			$class .= " clearf";
+			// insert class into template
+			$tpl = str_replace( '%%CLASS%%', $class, $tpl );
 
-		</li>
-	<?php
-	
-	endforeach;
-	
-	?>
+			// determine the image
+			$image = '<span class="si-image">' . get_the_post_thumbnail($post->ID,'medium') . '</span>';
+			$tpl = str_replace( '%%IMAGE%%', $image, $tpl );
+			
+			// determine name
+			$name = '<h2 class="si-name">' . get_the_title($post->ID) . '</h2>';
+			$tpl = str_replace( '%%NAME%%', $name, $tpl );
+
+			// determine title
+			$title = '<span class="si-title">' . get_post_meta($post->ID, 'staff_title', true) . '</span>';
+			$tpl = str_replace( '%%TITLE%%', $title, $tpl );
+
+			// determine email
+			$email = '<span class="si-email"><a href="mailto:' . get_post_meta($post->ID, 'staff_email', true) . '">'. get_post_meta($post->ID, 'staff_email', true) .'</a></span>';
+			$tpl = str_replace( '%%EMAIL%%', $email, $tpl );
+
+			// determine phone
+			$phone = '<span class="si-phone">' . get_post_meta($post->ID, 'staff_phone', true) . '</span>';
+			$tpl = str_replace( '%%PHONE%%', $phone, $tpl );
+
+			// determine phone extension
+			$phoneEx = '<span class="si-phone-ex">' . get_post_meta($post->ID, 'staff_phone_ex', true) . '</span>';
+			// echo $phoneEx; exit();
+			$tpl = str_replace( '%%PHONE_EX%%', $phoneEx, $tpl );
+
+			// determine the content
+			$content = '<div class="si-content">' . apply_filters('the_content', get_the_content()) . '</div>';
+			$tpl = str_replace( '%%CONTENT%%', $content, $tpl );
+
+			// print the template to the output buffer
+			echo $tpl;
+		endforeach;
+		?>
 	</ul>
 	<?php
 	$result = ob_get_contents();
