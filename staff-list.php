@@ -347,7 +347,7 @@ function staff_list( $atts ) {
 			$tpl = str_replace( '%%PHONE_EX%%', $phoneEx, $tpl );
 
 			// determine the content
-			$content = '<div class="si-content">' . get_the_content() . '</div>';
+			$content = '<div class="si-content">' . apply_filters('the_content', get_the_content()) . '</div>';
 			$tpl = str_replace( '%%CONTENT%%', $content, $tpl );
 
 			// print the template to the output buffer
