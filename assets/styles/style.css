@@ -35,34 +35,8 @@
 	list-style:none;
 	margin:0;
 }
-
 	.staff-list li {
-		line-height:1.8em;
-		margin:0 1px 20px 1px;
-		overflow:hidden;
-		padding:0;
-		text-align:left;
-	}
-	
-		.si-copy {
-			clear:none;
-			float:right;
-			width:60%;
-		}
-	
-		.si-image {
-			clear:none;
-			display:block;
-			float:left;
-			overflow:hidden;
-			width:30%;	
-		}
-	
+	}	
 		.si-name {
 			font-size:1.4em;
-			padding:0;
-		}
-		
-		.si-email {
-			font-size:1em;	
 		}

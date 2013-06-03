@@ -41,3 +41,11 @@ function my_staff_list_template( $tpl ) {
 }
 add_filter( 'staff_list_template', 'my_staff_list_template' );
 ```
+
+You can also modify the html heading (h1, h2, h3, etc):
+```php
+function my_staff_list_heading( $header ) {
+	return "h5";
+}
+add_filter( 'staff_list_heading', 'my_staff_list_heading' );
+```

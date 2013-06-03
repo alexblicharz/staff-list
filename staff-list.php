@@ -292,6 +292,10 @@ function staff_list( $atts ) {
 
 	// apply filters for any modifications from other plugins or themes
 	$template = apply_filters( 'staff_list_template', $template, $args );
+
+	// apply filters for any modifications from other plugins or themes
+	$heading = "h3";
+	$heading = apply_filters( 'staff_list_heading', $heading );
 	
 	// start the outbut buffer
 	ob_start();
@@ -326,7 +330,7 @@ function staff_list( $atts ) {
 			$tpl = str_replace( '%%IMAGE%%', $image, $tpl );
 			
 			// determine name
-			$name = '<h2 class="si-name">' . get_the_title($post->ID) . '</h2>';
+			$name = '<' . $heading . ' class="si-name">' . get_the_title($post->ID) . '</' . $heading . '>';
 			$tpl = str_replace( '%%NAME%%', $name, $tpl );
 
 			// determine title
