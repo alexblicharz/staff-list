@@ -32,7 +32,7 @@ function create_staff_list_custom_post_type() {
 		'description'	=> 'A list of all Staff Members',
 		'public'		=> true,
 		'menu_position'	=> 5,
-		'supports'		=> array( 'title', 'editor', 'thumbnail'), // 'title', 'editor', 'thumbnail', 'excerpt', 'comments' 
+		'supports'		=> array( 'title', 'editor', 'thumbnail'), // 'title', 'editor', 'thumbnail', 'excerpt', 'comments'
 		'has_archive'	=> true,
 	);
 	
@@ -64,6 +64,25 @@ function create_staff_list_custom_post_type() {
 }
 
 add_action( 'init', 'create_staff_list_custom_post_type' );
+
+// Add a custom icon to the custom post type
+function staff_list_admin_icons() {
+	?>
+		<style type="text/css" media="screen">
+			#menu-posts-staff .wp-menu-image {
+				background: url(<?php echo get_bloginfo('url').'/wp-content/plugins/staff-list/assets/images/staff-list-16x16.png'; ?>) no-repeat 6px 6px !important;		
+			}
+
+			#menu-posts-staff:hover .wp-menu-image, #menu-posts-staff.wp-has-current-submenu .wp-menu-image {		
+				background-position:6px -16px !important;		
+			}
+			
+			#icon-edit.icon32-posts-staff {background: url(<?php echo get_bloginfo('url').'/wp-content/plugins/staff-list/assets/images/staff-list-32x32.png'; ?>) no-repeat;}
+        </style>
+    <?php	
+}
+
+add_action( 'admin_head', 'staff_list_admin_icons' );
 
 
 // Modify the update messgaes to better relate to the 'staff' custom post type
